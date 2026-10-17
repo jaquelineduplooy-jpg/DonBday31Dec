@@ -1009,7 +1009,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <style id="v23-visible-hero-shadows-playback">
 /* Preserve every edge of the approved montage while filling the frame with a subtle blurred echo. */
 .hero-visual{background:#081e35!important;isolation:isolate!important}
-.hero-visual::before{content:"";position:absolute;inset:-32px;background:url('assets/hero-memory-collage.png') center/cover no-repeat;filter:blur(24px) brightness(.48);z-index:0}
+.hero-visual::before{content:"";position:absolute;inset:-32px;background:url('assets/hero-memory-collage-full.jpg') center/cover no-repeat;filter:blur(24px) brightness(.48);z-index:0}
 .hero-visual>img{position:relative!important;z-index:1!important;display:block!important;max-width:100%!important;width:100%!important;height:100%!important;transform:none!important;object-fit:contain!important;object-position:center!important;filter:none!important}
 .shadows-turntable{margin-top:24px;background:linear-gradient(155deg,#e4eef8,#f7fbff);border:1px solid rgba(29,82,131,.16);border-radius:22px;overflow:hidden;box-shadow:0 14px 35px rgba(11,35,61,.13)}
 .shadows-cover{position:relative;isolation:isolate;background:#123c60}
@@ -1031,6 +1031,115 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 @media(max-width:620px){.shadows-listen{flex-direction:column;align-items:flex-start}.shadows-playlink{width:100%;text-align:center}.shadows-track{height:80px}}
 @media(prefers-reduced-motion:reduce){.shadows-spinning-label{animation:none!important}}
 </style>
+
+<style id="v24-full-bleed-hero-music-artists">
+/* Only layout changes requested: a full-bleed hero and a full-bleed soundtrack illustration. */
+.hero{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  min-height:650px!important;
+  isolation:isolate;
+  background:#071b33!important;
+  overflow:hidden;
+}
+.hero-visual{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  z-index:0!important;
+  overflow:hidden!important;
+  background:#071b33!important;
+}
+.hero-visual>img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:52% 52%!important;
+  transform:none!important;
+  filter:none!important;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(90deg,
+   rgba(5,20,37,.97) 0%,
+   rgba(6,25,47,.94) 18%,
+   rgba(9,34,62,.84) 36%,
+   rgba(10,35,63,.48) 51%,
+   rgba(7,27,51,.06) 72%,
+   rgba(7,27,51,0) 100%);
+}
+.hero-copy{
+  width:min(65%,760px)!important;
+  min-width:0!important;
+  min-height:650px!important;
+  z-index:2!important;
+  position:relative!important;
+  padding:58px clamp(38px,5.4vw,82px)!important;
+  background:transparent!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  text-align:left!important;
+  color:#fff!important;
+  text-shadow:0 2px 16px rgba(2,15,30,.40);
+}
+.hero h1{color:#fff!important;max-width:670px}
+.hero-sub{color:#d4e9fb!important;text-shadow:0 2px 12px rgba(1,15,29,.65)}
+.hero-date{color:#fff!important}
+.hero-tagline{color:#e6edf6!important}
+.hero-kicker{color:#cde4f6!important;border-color:rgba(227,242,255,.4)!important;background:rgba(3,22,43,.22)}
+.hero-copy .button-row{display:flex!important;flex-wrap:wrap!important;max-width:650px!important;gap:11px!important;margin-top:28px!important;width:auto!important}
+.hero-copy .button{width:auto!important;white-space:nowrap;text-shadow:none}
+.hero-copy .button.secondary{background:rgba(7,27,51,.66)!important;border:1px solid rgba(234,246,255,.4)!important;color:#fff!important;backdrop-filter:blur(6px)}
+/* Fill the full artists card: do not letterbox the image. */
+.spotify-layout{grid-template-columns:1fr 1fr!important;align-items:stretch!important}
+.elvis-music-photo{
+  width:100%!important;
+  height:352px!important;
+  padding:0!important;
+  margin:0!important;
+  display:block!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  background:#071b33!important;
+  border-radius:18px;
+  filter:none!important;
+}
+@media (max-width:960px){
+ .hero{min-height:670px!important;display:block!important}
+ .hero-visual{aspect-ratio:auto!important;height:100%!important;min-height:0!important}
+ .hero-visual>img{object-fit:cover!important;object-position:62% center!important}
+ .hero::before{background:linear-gradient(180deg,
+    rgba(5,20,37,.95) 0%,rgba(6,24,45,.93) 19%,rgba(6,24,45,.79) 44%,
+    rgba(6,24,45,.34) 72%,rgba(6,24,45,.12) 100%)}
+ .hero-copy{width:100%!important;min-height:0!important;padding:46px 38px 300px!important}
+ .spotify-layout{grid-template-columns:1fr!important}
+ .elvis-music-photo{height:auto!important;aspect-ratio:1.5;object-fit:cover!important}
+}
+@media (max-width:620px){
+ .hero{min-height:710px!important;border-radius:24px!important;margin-top:10px!important}
+ .hero-visual{height:100%!important;aspect-ratio:auto!important}
+ .hero-visual>img{object-position:63% center!important}
+ .hero-copy{padding:32px 23px 280px!important;align-items:flex-start!important;text-align:left!important}
+ .hero h1{font-size:clamp(3.7rem,15.5vw,5.3rem)!important;line-height:.86!important;margin:20px 0 13px!important}
+ .hero-sub{font-size:1.35rem!important;line-height:1.18!important}
+ .hero-date{font-size:.72rem!important;letter-spacing:.09em!important}
+ .hero-tagline{margin-top:18px!important;font-size:.96rem!important}
+ .hero-copy .button-row{display:grid!important;grid-template-columns:1fr!important;width:100%!important;margin-top:22px!important}
+ .hero-copy .button{width:100%!important;min-height:48px!important}
+ .elvis-music-photo{height:auto!important;aspect-ratio:1.5}
+}
+</style>
 </head>
 <body>
 <nav class="nav">
@@ -1049,7 +1158,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <p class="hero-tagline">Sun. Fun. Rock ’n’ roll.<br/><span>And one very good reason to celebrate.</span></p>
 <div class="button-row"><a class="button primary" href="#rsvp">Accept the invitation</a><a class="button secondary" href="#soundtrack">Play the playlist</a></div>
 </div>
-<div class="hero-visual"><img alt="Vintage collage of rugby, fishing, Beach Boys music, Elvis, and family memories by the water" decoding="async" fetchpriority="high" src="assets/hero-memory-collage.png"/></div>
+<div class="hero-visual"><img alt="Vintage collage of rugby, fishing, Beach Boys music, Elvis, and family memories by the water" decoding="async" fetchpriority="high" src="assets/hero-memory-collage-full.jpg"/></div>
 </header>
 <section aria-label="Celebration details" class="quick-summary" id="road"><div class="quickbar"><div class="quick-item"><b>31 DEC</b><strong>New Year's Eve</strong><em>Thursday · 2026</em></div><div class="quick-item"><b>14:00</b><strong>Let the fun begin</strong><em>Lunch &amp; Celebration</em></div><div class="quick-item"><b>13</b><strong>Bruyn Street</strong><em>Noordheuwel</em></div><div class="quick-item"><b>ALL</b><strong>Everyone welcome</strong><em>Kids & Grandkids too!</em></div><div class="quick-item"><b>RSVP</b><strong>By 15 November</strong><em>Confirm by 15 November 2026</em></div></div></section>
 <main>
@@ -1107,7 +1216,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <section class="section" id="soundtrack">
   <div class="card soundtrack-revised">
     <div class="soundtrack-head">
-      <div><div class="kicker">The soundtrack</div><h2 class="section-title">Turn it up.</h2><p class="section-intro">Elvis, The Beatles, The Beach Boys and all the songs worth singing along to.</p></div>
+      <div><div class="kicker">The soundtrack</div><h2 class="section-title">Turn it up.</h2><p class="section-intro">Elvis, The Beatles, The Beach Boys, The Shadows, Eagles and all the songs worth singing along to.</p></div>
       <img src="assets/karaoke-mic-blue.png" class="music-vinyl" alt="Vintage blue karaoke microphone artwork" loading="lazy"/>
     </div>
     <div class="spotify-layout">
@@ -1115,7 +1224,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
         <iframe src="https://open.spotify.com/embed/playlist/0K93afeWZDNAKaFpOeS1Pa?utm_source=generator" title="Birthday playlist on Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         <a class="button secondary" href="https://open.spotify.com/playlist/0K93afeWZDNAKaFpOeS1Pa" target="_blank" rel="noopener noreferrer">Open Spotify playlist ↗</a>
       </div>
-      <img src="assets/elvis-music.jpg" class="elvis-music-photo" loading="lazy" alt="Elvis-era rock and roll collage, retro microphone and classic beach holiday photographs"/>
+      <img src="assets/artists-elvis-beatles-beach-boys-shadows-eagles.jpg" class="elvis-music-photo" loading="lazy" alt="Vintage collage of Elvis, the Beatles, Beach Boys, Shadows, Eagles and rock and roll memorabilia"/>
     </div>
   </div>
 </section>
@@ -1187,7 +1296,7 @@ window.addEventListener('message',event=>{
   if(event.origin!=='https://script.google.com' && event.origin!=='https://script.googleusercontent.com' && !event.origin.endsWith('.googleusercontent.com'))return;
   if(!event.data || event.data.type!=='birthday-rsvp')return;
   document.getElementById('rsvpSubmit').disabled=false;
-  status.textContent=event.data.ok?'Thank you! Your RSVP has been recorded.':'Sorry, your reply could not be saved. Please try again.';
+  status.textContent=event.data.ok?'Thank you! Your RSVP has been recorded.':(event.data.message||'Sorry, your reply could not be saved. Please try again.');
   if(event.data.ok){form.reset();count.disabled=false; document.querySelector('.people-field').classList.remove('not-attending');}
 });
 </script></body>
