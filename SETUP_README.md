@@ -1,13 +1,27 @@
-# When I'm Seventy — Website and RSVP setup
+# WHEN I'M SEVENTY — V20 website / RSVP integration
 
-1. Website: upload the contents of this ZIP (index.html, assets/) to your existing Vercel project. Do not upload the enclosing folder as a separate site unless you want a new URL.
-2. Google Sheet: https://docs.google.com/spreadsheets/d/10eqUEZeiPZe_Ap6g9lv0b8bRIRAcQniIEKPB9UVS6Xg/edit
-3. In the sheet: Extensions > Apps Script. Copy GOOGLE_SHEETS_RSVP_APPS_SCRIPT.gs into Code.gs, save and run setup() once. Approve the permissions.
-4. Deploy > New deployment > Web app. Set Execute as 'Me' and Who has access 'Anyone'. Deploy and copy the web app URL ending in /exec.
-5. Replace the RSVP_SCRIPT_URL placeholder in index.html with that /exec URL. Do not paste the /edit Google Sheets URL as the script endpoint.
-6. Deploy the updated site to Vercel. Submit a test 'Yes' RSVP for two guests; confirm the Birthday RSVPs and Birthday Headcount tabs update. Submit a second RSVP with the same name and a different count; it replaces the previous response instead of doubling it. Try a 'No' RSVP too.
-7. Your Google Sheet can stay private: the Google Apps Script runs on your behalf and only handles form submissions.
+## Your website
+The V20 website has the Google Apps Script `/exec` URL inserted in both `index.html` and `preview.html`.
+The RSVP form sends **name, number attending, Yes / No** via POST to the Google Apps Script web app, which is configured for your Google spreadsheet.
 
-IMPORTANT: Until step 5 is complete, live RSVPs are not connected. The spinning vinyl record is an animation; audio is played only when the guest uses the Spotify embed/player.
+Google Sheet: https://docs.google.com/spreadsheets/d/10eqUEZeiPZe_Ap6g9lv0b8bRIRAcQniIEKPB9UVS6Xg/edit
+Google Apps Script endpoint: https://script.google.com/macros/s/AKfycbzV8ApftHEJ8ND0d4d7IdcNDDdjrQOY9rWMBiLVjWDLj8DA9xR1llLQy0mQKTwr3oyNGw/exec
 
-Artwork: The musician montage is an original retro-inspired generated illustration. It is not a set of licensed archival photographs of the artists.
+## Publish the website
+Upload the contents of this ZIP to your existing Vercel website project. The ZIP has `index.html` at its root. You do not need to change the RSVP URL in the HTML.
+
+## Verify before sharing the invitation
+1. In Apps Script ensure the Web app is deployed, **Execute as: Me**, **Who has access: Anyone**.
+2. Submit a test RSVP on the published website with the name `Website Test RSVP` and 2 guests. Watch for the success message.
+3. Open the Google Sheet and verify a new row in **Birthday RSVPs** and that **Birthday Headcount** shows 2 guests.
+4. Submit that same test name again with 3 guests; total should update to 3 rather than add to 5.
+5. Change it to **No**; the total should return to 0.
+6. Delete the test row once verified.
+
+**Important**: The endpoint has been added to the frontend, but live submissions and sheet writes cannot be confirmed without a real browser submission and checking the private Sheet. No test RSVP was submitted during packaging.
+
+## Website presentation
+V20 navy vintage layout; full-bleed fishing-and-Lions hero montage; The Shadows spinning record, The Beatles theme; Elvis/Beatles/Beach Boys/Shadows/Eagles artist collage; family memory reel; simplified RSVP by 15 November 2026.
+
+## Music
+The spinning vinyl is a visual animation. Spotify requires the guest to click play before audio starts.

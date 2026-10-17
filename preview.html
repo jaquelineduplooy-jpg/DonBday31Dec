@@ -1264,13 +1264,14 @@ loadDriveImages().then(urls=>{
 });
 </script>
 <script>
-// Connect your deployed private Google Sheets Apps Script URL before inviting guests.
-const RSVP_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE';
+// Live Google Apps Script endpoint linked to the birthday RSVP spreadsheet.
+const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzV8ApftHEJ8ND0d4d7IdcNDDdjrQOY9rWMBiLVjWDLj8DA9xR1llLQy0mQKTwr3oyNGw/exec';
 const form = document.getElementById('rsvpForm');
 const status = document.getElementById('rsvpStatus');
 const count = document.getElementById('guestCount');
 const radios = [...document.querySelectorAll('input[name="response"]')];
 const isGoing = () => form.querySelector('input[name="response"]:checked').value === 'Yes';
+let rsvpTimeout = null;
 const setCount = n => {count.value = Math.max(1,Math.min(50,Math.trunc(Number(n)||1)));};
 document.getElementById('countMinus').addEventListener('click',()=>setCount(Number(count.value)-1));
 document.getElementById('countPlus').addEventListener('click',()=>setCount(Number(count.value)+1));
@@ -1279,7 +1280,7 @@ radios.forEach(r=>r.addEventListener('change',()=>{ const attending = isGoing();
 form.addEventListener('submit',event=>{
   if(!RSVP_SCRIPT_URL.startsWith('https://script.google.com/macros/s/')){
     event.preventDefault();
-    status.textContent='RSVPs are not open yet. The organiser is connecting the guest list.';
+    status.textContent='RSVP service is not connected. Please contact the organiser.';
     status.classList.add('notice');
     return;
   }
@@ -1291,10 +1292,13 @@ form.addEventListener('submit',event=>{
   form.action=RSVP_SCRIPT_URL;
   document.getElementById('rsvpSubmit').disabled=true;
   status.textContent='Submitting your RSVP…';
+  clearTimeout(rsvpTimeout);
+  rsvpTimeout=setTimeout(()=>{document.getElementById('rsvpSubmit').disabled=false; status.textContent='We could not confirm receipt. Please check with the organiser before resubmitting.';},20000);
 });
 window.addEventListener('message',event=>{
   if(event.origin!=='https://script.google.com' && event.origin!=='https://script.googleusercontent.com' && !event.origin.endsWith('.googleusercontent.com'))return;
   if(!event.data || event.data.type!=='birthday-rsvp')return;
+  clearTimeout(rsvpTimeout);
   document.getElementById('rsvpSubmit').disabled=false;
   status.textContent=event.data.ok?'Thank you! Your RSVP has been recorded.':(event.data.message||'Sorry, your reply could not be saved. Please try again.');
   if(event.data.ok){form.reset();count.disabled=false; document.querySelector('.people-field').classList.remove('not-attending');}
