@@ -1146,19 +1146,29 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 .invitation-story .section-title{font-size:clamp(2.75rem,4.6vw,5.2rem)!important}
 @media(max-width:960px){.hero h1{font-size:clamp(3.2rem,8.5vw,5.1rem)!important}}
 @media(max-width:620px){.hero h1{font-size:clamp(3.15rem,12.8vw,4.6rem)!important}.invitation-story .section-title{font-size:clamp(2.75rem,11vw,3.3rem)!important}}
+
+<style id="v25-dve-hero-memory-copy-refresh">
+.brand{letter-spacing:.08em}
+.memory-card{position:relative;overflow:hidden;isolation:isolate}
+.memory-card::before{content:"";position:absolute;inset:0;background:url('assets/hero-memory-collage-full.jpg') center/cover no-repeat;opacity:.12;filter:blur(1px) saturate(.9);transform:scale(1.05);z-index:0}
+.memory-card>*{position:relative;z-index:1}
+.memory-title{white-space:nowrap}
+.invitation-story .section-title{max-width:10ch}
+@media(max-width:1200px){.memory-top{grid-template-columns:minmax(0,1.25fr) minmax(280px,.95fr)!important}}
+@media(max-width:860px){.memory-title{white-space:normal}}
 </style>
 </head>
 <body>
 <nav class="nav">
 <div class="nav-inner">
-<div class="brand">Wanneer ek sewentig is...<small>70 Jaar vol Son, Pret &amp; Avontuur · 31 Desember</small></div>
+<div class="brand">DvE 1956<small>70 Jaar vol Son, Pret &amp; Avontuur · 31 Desember</small></div>
 <div class="nav-links"><a href="#road">Die fees</a><a href="#rsvp">RSVP</a><a href="#memories">Herinneringe</a><a href="#soundtrack">Musiek</a></div>
 </div>
 </nav>
 <header class="hero">
 <div class="hero-copy">
 <div class="hero-kicker">Ons vier saam</div>
-<h1>Wanneer ek<br/>sewentig is...</h1>
+<h1>Kom vier<br/>’n legende!</h1>
 <p class="hero-sub">70 Jaar vol Son, Pret &amp; Avontuur</p>
 <span class="hero-date">31 Desember 2026 · 14:00</span>
 
@@ -1172,10 +1182,10 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <section class="section combined-invite" id="rsvp">
  <div class="card invitation-panel">
   <div class="invitation-story">
-   <div class="kicker">The Beatles · 1967 · ’n Verjaarsdagknipoog</div>
-   <h2 class="section-title">Wanneer ek<br/>sewentig is...</h2>
-   <p class="intro-verse">Geïnspireer deur <em>The Beatles se “When I’m Sixty-Four”</em> — maar Pa word nou sewentig!</p>
-   <p>Sewentig jaar se visvangstories, rugby-Saterdae, lewendige musiek, karaoke en die mense wat alles die moeite werd maak.</p>
+   <div class="kicker">DvE 1956 · 31 Desember 2026 · Middagete, musiek &amp; memories</div>
+   <h2 class="section-title">70 jaar van stories</h2>
+   <p class="intro-verse">Visvangstories, rugby-Saterdae, lekker musiek en die mense wat die lewe besonders maak — dis wat ons saam kom vier.</p>
+   <p>Kom geniet ’n ontspanne middag vol goeie kos, lag, karaoke en al die herinneringe wat nog gemaak gaan word.</p>
    <p class="invite-note">Familie, vriende, kinders en kleinkinders is almal welkom. Laat weet net met hoeveel julle kom.</p>
    <div class="shadows-turntable" aria-label="Draaiende vinielplaat van The Shadows se Apache, met Spotify-afspeelmoontlikheid">
   <div class="shadows-cover">
@@ -1213,7 +1223,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <section class="section" id="memories">
 <div class="card memory-card">
 <div class="memory-top">
-<div><div class="kicker">Ons herinneringe</div><h2 class="section-title">Oomblikke om te onthou</h2></div>
+<div><div class="kicker">Ons herinneringe</div><h2 class="section-title memory-title">Oomblikke om te onthou</h2></div>
 <p class="memory-copy">Familieherinneringe van voor die groot dag, foto’s tydens die fees en al die mooi oomblikke wat ons daarna nog gaan deel.</p>
 </div>
 <div class="film-window"><div class="film-track" id="memoryTrack"></div></div>
