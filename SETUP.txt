@@ -1,0 +1,13 @@
+GOOGLE SHEETS RSVP SETUP (about 5 minutes)
+
+1. Create a private Google Sheet called "Dad 70 RSVP".
+2. In that sheet: Extensions > Apps Script.
+3. Paste the full content of GOOGLE_SHEETS_RSVP_APPS_SCRIPT.gs into Code.gs. Save.
+4. Run the setup function ONCE and authorize it. This creates RSVP and Headcount tabs.
+5. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone. Deploy.
+6. Copy the Web app URL ending in /exec.
+7. In index.html replace PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE with the URL.
+8. Upload the updated site to Vercel. Test one RSVP and confirm it appears in the RSVPs tab.
+9. To get Excel: Google Sheets > File > Download > Microsoft Excel (.xlsx).
+
+The Google Sheet stays private. The web app accepts RSVP submissions from invitees. Do not put private information in public site code. For duplicate submissions, the sheet keeps a history; use latest response per guest when counting unique invitees.
