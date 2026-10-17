@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="#071b33" name="theme-color"/>
-<title>Wanneer ek sewentig is... | 31 Desember 2026</title>
+<title>Kom vier ’n legende! | DvE 1956 · 31 Desember 2026</title>
 <meta content="Kom vier Pa se 70ste verjaardag met visvang, rugby, karaoke en familie. Oujaarsaand 2026 in Noordheuwel. Laat weet teen 15 November." name="description"/>
 <style>
 :root{
@@ -734,7 +734,7 @@ main{padding-top:6px}
 
   /* Soundtrack */
   .sound-card{padding:23px 18px!important}
-  .spotify-wrap{margin-top:18px;border-radius:16px;min-height:152px;background:#071b33 url('assets/spotify-still-on-fire-cover.png') center/cover no-repeat}
+  .spotify-wrap{margin-top:18px;border-radius:16px;min-height:152px;background:#071b33 url('assets/spotify-vinyl-cover.png') center/cover no-repeat}
   .spotify-wrap iframe{height:152px}
   .sound-card .button-row{margin-top:16px!important}
   .sound-card .button{min-height:46px}
@@ -1151,7 +1151,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 .invitation-story .section-title{font-size:clamp(2.75rem,4.6vw,5.2rem)!important}
 @media(max-width:960px){.hero h1{font-size:clamp(3.2rem,8.5vw,5.1rem)!important}}
 @media(max-width:620px){.hero h1{font-size:clamp(3.15rem,12.8vw,4.6rem)!important}.invitation-story .section-title{font-size:clamp(2.75rem,11vw,3.3rem)!important}}
-
+</style>
 <style id="v25-dve-hero-memory-copy-refresh">
 .brand{letter-spacing:.08em}
 .memory-card{position:relative;overflow:hidden;isolation:isolate}
@@ -1162,11 +1162,161 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 @media(max-width:1200px){.memory-top{grid-template-columns:minmax(0,1.25fr) minmax(280px,.95fr)!important}}
 @media(max-width:860px){.memory-title{white-space:normal}}
 </style>
+
+<style id="v26-precise-invitation-edits">
+/* The memories reel is intentionally clean: no photograph behind the moving frames. */
+#memories .memory-card{background:linear-gradient(135deg,#0a2541,#173b62 60%,#245584)!important;isolation:auto!important}
+#memories .memory-card::before,#memories .memory-card::after{content:none!important;display:none!important;background:none!important;opacity:0!important}
+/* Closing montage: real source artwork throughout, NO dark-blue shading. */
+#finale.closing-card{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:clamp(300px,24vw,425px)!important;
+  background:#ede7de url('assets/closing-montage-wide.jpg') center center / cover no-repeat!important;
+  border:1px solid rgba(28,59,91,.15)!important;
+  padding:clamp(32px,5vw,60px)!important;
+}
+#finale.closing-card::before,#finale.closing-card::after{
+  content:none!important;display:none!important;background:none!important;opacity:0!important
+}
+#finale.closing-card h2{
+  position:relative!important;z-index:1!important;
+  color:#0b2947!important;
+  text-shadow:0 1px 3px rgba(255,255,255,.93),0 4px 28px rgba(255,255,255,.65)!important;
+  font-size:clamp(2.8rem,6vw,6rem)!important;
+  line-height:1.06!important;
+  letter-spacing:-.06em!important;
+  max-width:100%!important;
+}
+/* The smaller invitation text is below the main hero heading, not a repeated tagline. */
+.hero-date{margin-top:24px!important}
+/* On mobile, the RSVP panel moves underneath the invitation copy. */
+.invite-direction-mobile{display:none}
+@media(max-width:960px){.invite-direction-desktop{display:none}.invite-direction-mobile{display:inline}}
+@media(max-width:620px){
+ #finale.closing-card{
+   min-height:385px!important;
+   background-image:url('assets/closing-montage-mobile.jpg')!important;
+   background-size:cover!important;
+   background-position:center!important;
+   padding:38px 26px!important;
+ }
+ #finale.closing-card h2{font-size:clamp(2.7rem,10vw,4.1rem)!important}
+ .hero-date{margin-top:15px!important}
+}
+</style>
+
+<style id="v27-mobile-overlap-and-image-repair">
+/* Mobile: display the COMPLETE 3:2 hero montage without cropping any characters or artwork. */
+@media(max-width:960px){
+  .hero{
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    min-height:0!important;height:auto!important;overflow:hidden!important;
+    background:#0a2541!important;
+  }
+  .hero::before,.hero::after{content:none!important;display:none!important}
+  .hero-copy{
+    order:0!important;position:relative!important;width:100%!important;max-width:none!important;
+    min-height:0!important;height:auto!important;
+    padding:40px clamp(22px,5vw,46px) 28px!important;
+    background:linear-gradient(145deg,#081c33,#183e64)!important;
+    text-shadow:none!important;z-index:2!important;
+    align-items:flex-start!important;text-align:left!important;
+  }
+  .hero-visual{
+    order:1!important;position:relative!important;inset:auto!important;
+    width:100%!important;max-width:none!important;
+    height:auto!important;max-height:none!important;min-height:0!important;
+    aspect-ratio:3/2!important;overflow:hidden!important;
+    z-index:1!important;background:#0a2541!important;
+  }
+  .hero-visual::before,.hero-visual::after{content:none!important;display:none!important}
+  .hero-visual>img{
+    position:relative!important;display:block!important;width:100%!important;
+    height:100%!important;max-height:none!important;
+    object-fit:contain!important;object-position:center center!important;
+    transform:none!important;filter:none!important;
+  }
+  .hero h1{width:100%!important;max-width:100%!important;overflow-wrap:normal;line-height:.96!important}
+  .hero-copy .button-row{margin-top:22px!important}
+  .nav-inner{min-width:0!important}
+  .brand{min-width:0!important}
+  .brand small{font-size:.57rem!important;line-height:1.45!important;letter-spacing:.12em!important;overflow-wrap:normal!important}
+  .memory-top{
+    display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+    justify-content:flex-start!important;gap:14px!important;margin-bottom:22px!important;
+  }
+  .memory-top>div:first-child{width:100%!important;min-width:0!important;max-width:100%!important}
+  #memories .memory-title{
+    display:block!important;white-space:normal!important;max-width:100%!important;
+    font-size:clamp(2.5rem,7.5vw,3.8rem)!important;
+    line-height:1.04!important;letter-spacing:-.045em!important;
+    overflow-wrap:normal!important;hyphens:none!important;
+    margin:10px 0 0!important;
+  }
+  #memories .memory-copy{
+    flex:none!important;display:block!important;position:relative!important;
+    width:100%!important;max-width:100%!important;
+    margin:0!important;line-height:1.58!important;font-size:1rem!important;
+    overflow-wrap:break-word!important;
+  }
+  #memories .memory-card{overflow:hidden!important}
+  #memories .film-window{max-width:100%!important;overflow:hidden!important}
+  #memories .share-note{min-width:0!important;overflow-wrap:break-word!important}
+}
+@media(max-width:620px){
+  .hero{min-height:0!important;height:auto!important;border-radius:24px!important}
+  .hero-copy{padding:27px 22px 24px!important}
+  .hero h1{
+    font-size:clamp(2.6rem,11.4vw,4.3rem)!important;
+    line-height:.94!important;margin:16px 0 8px!important;
+    letter-spacing:-.055em!important;
+  }
+  .hero-kicker{font-size:.57rem!important;padding:8px 11px!important;margin:0!important}
+  .hero-date{margin-top:14px!important;font-size:.72rem!important;letter-spacing:.08em!important}
+  .hero-tagline{margin-top:13px!important;margin-bottom:0!important;font-size:.93rem!important;line-height:1.4!important}
+  .hero-copy .button-row{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;margin-top:19px!important;width:100%!important}
+  .hero-copy .button{width:100%!important;white-space:normal!important;min-height:46px!important;line-height:1.3!important;padding:11px 10px!important;font-size:.65rem!important}
+  .hero-visual{aspect-ratio:3/2!important;height:auto!important;min-height:0!important}
+  .hero-visual>img{object-fit:contain!important;object-position:center center!important}
+  #memories .memory-card{padding:25px 19px!important}
+  #memories .memory-title{font-size:clamp(2.25rem,9.6vw,3.2rem)!important;line-height:1.04!important}
+  #memories .memory-copy{font-size:.94rem!important;line-height:1.52!important}
+  #memories .share-note{padding:18px!important}
+  #memories .share-note h3{font-size:1.28rem!important;line-height:1.2!important}
+  .soundtrack-head{gap:12px!important;align-items:start!important}
+  .soundtrack-head .section-title{font-size:clamp(2rem,8vw,3.3rem)!important;line-height:1.0!important;overflow-wrap:break-word!important}
+  .soundtrack-head .section-intro{font-size:.92rem!important;line-height:1.5!important}
+  .rsvp-panel h3{font-size:clamp(2.3rem,10vw,3.25rem)!important;line-height:1.06!important}
+  .invitation-story .section-title{font-size:clamp(2.45rem,10.5vw,3.5rem)!important;line-height:1.02!important}
+  .attendance-option{min-width:0!important;flex:1 1 100%!important}
+  .attendance-field{display:flex!important;flex-direction:column!important}
+}
+@media(max-width:360px){
+ .hero-copy{padding:25px 17px 19px!important}
+ .hero h1{font-size:clamp(2.25rem,11.3vw,3.3rem)!important}
+ .hero-tagline{font-size:.88rem!important}
+ #memories .memory-card{padding:22px 16px!important}
+ #memories .memory-title{font-size:clamp(2rem,9.5vw,2.45rem)!important}
+ .brand small{font-size:.51rem!important;letter-spacing:.08em!important}
+}
+/* Desktop/tablet: give the large memories heading and right description separate measured columns. */
+@media(min-width:961px){
+  .memory-top{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(260px,.95fr)!important;align-items:center!important;column-gap:32px!important}
+  .memory-top>div:first-child{min-width:0!important}
+  #memories .memory-title{font-size:clamp(2.8rem,4.0vw,4rem)!important;line-height:1.05!important;white-space:normal!important}
+  #memories .memory-copy{margin:0!important;max-width:100%!important;line-height:1.56!important}
+}
+@media(min-width:1400px){#memories .memory-title{white-space:nowrap!important;font-size:clamp(2.8rem,3.85vw,3.9rem)!important}}
+/* Original artwork should remain visible in the final farewell panel; only the images are faded, without any blue tint. */
+#finale.closing-card::before,#finale.closing-card::after{content:none!important;display:none!important}
+</style>
+
 </head>
 <body>
 <nav class="nav">
 <div class="nav-inner">
-<div class="brand">DvE 1956<small>70 Jaar vol Son, Pret &amp; Avontuur · 31 Desember</small></div>
+<div class="brand">DvE 1956<small>31 Desember 2026 · Noordheuwel</small></div>
 <div class="nav-links"><a href="#road">Die fees</a><a href="#rsvp">RSVP</a><a href="#memories">Herinneringe</a><a href="#soundtrack">Musiek</a></div>
 </div>
 </nav>
@@ -1174,7 +1324,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <div class="hero-copy">
 <div class="hero-kicker">Ons vier saam</div>
 <h1>Kom vier<br/>’n legende!</h1>
-<p class="hero-sub">70 Jaar vol Son, Pret &amp; Avontuur</p>
+
 <span class="hero-date">31 Desember 2026 · 14:00</span>
 
 <p class="hero-tagline">Son. Pret. Rock ’n’ roll.<br/><span>En een baie goeie rede om fees te vier.</span></p>
@@ -1182,7 +1332,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 </div>
 <div class="hero-visual"><img alt="Vintage collage van rugby, visvang, The Beach Boys, Elvis en herinneringe langs die water" decoding="async" fetchpriority="high" src="assets/hero-memory-collage-full.jpg"/></div>
 </header>
-<section aria-label="Besonderhede van die fees" class="quick-summary" id="road"><div class="quickbar"><div class="quick-item"><b>31 DES</b><strong>Oujaarsaand</strong><em>Donderdag · 2026</em></div><div class="quick-item"><b>14:00</b><strong>Die pret begin</strong><em>Middagete &amp; feesviering</em></div><div class="quick-item"><b>13</b><strong>Bruynstraat</strong><em>Noordheuwel</em></div><div class="quick-item"><b>ALMAL</b><strong>Almal welkom</strong><em>Kinders &amp; kleinkinders ook!</em></div><div class="quick-item"><b>RSVP</b><strong>Teen 15 November</strong><em>Laat weet teen 15 November 2026</em></div></div></section>
+<section aria-label="Besonderhede van die fees" class="quick-summary" id="road"><div class="quickbar"><div class="quick-item"><b>31 DES</b><strong>Oujaarsaand</strong><em>Donderdag · 2026</em></div><div class="quick-item"><b>14:00</b><strong>Die pret begin</strong><em>Middagete &amp; feesviering</em></div><div class="quick-item"><b>13</b><strong>Bruynstraat</strong><em>Noordheuwel</em></div><div class="quick-item"><b>KOM KUIER SAAM</b><strong>Vriende &amp; familie</strong><em>Kinders &amp; kleinkinders ook!</em></div><div class="quick-item"><b>RSVP</b><strong>Teen 15 November</strong></div></div></section>
 <main>
 <section class="section combined-invite" id="rsvp">
  <div class="card invitation-panel">
@@ -1191,7 +1341,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
    <h2 class="section-title">70 jaar van stories</h2>
    <p class="intro-verse">Visvangstories, rugby-Saterdae, lekker musiek en die mense wat die lewe besonders maak — dis wat ons saam kom vier.</p>
    <p>Kom geniet ’n ontspanne middag vol goeie kos, lag, karaoke en al die herinneringe wat nog gemaak gaan word.</p>
-   <p class="invite-note">Familie, vriende, kinders en kleinkinders is almal welkom. Laat weet net met hoeveel julle kom.</p>
+   <p class="invite-note">Familie, vriende, kinders en kleinkinders is almal welkom. <span class="invite-direction-desktop">Bevestig regs — vul in en stuur jou RSVP.</span><span class="invite-direction-mobile">Bevestig hieronder — vul in en stuur jou RSVP.</span></p>
    <div class="shadows-turntable" aria-label="Draaiende vinielplaat van The Shadows se Apache, met Spotify-afspeelmoontlikheid">
   <div class="shadows-cover">
     <img src="assets/vinyl-sunset-backdrop.png" alt="Vintage platespeler met The Shadows se Apache-omslag, visvanggerei en sonsondergang" loading="eager"/>
@@ -1238,7 +1388,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <section class="section" id="soundtrack">
   <div class="card soundtrack-revised">
     <div class="soundtrack-head">
-      <div><div class="kicker">Die musiek</div><h2 class="section-title">Draai die volume oop!</h2><p class="section-intro">Elvis, The Beatles, The Beach Boys, The Shadows, Eagles en al die treffers wat ons lekker saamsing.</p></div>
+      <div><div class="kicker">Die musiek</div><h2 class="section-title">Draai die volume OP!</h2><p class="section-intro">Elvis, The Beatles, The Beach Boys, The Shadows, Eagles en al die treffers wat ons lekker saamsing.</p></div>
       <img src="assets/karaoke-mic-blue.png" class="music-vinyl" alt="Vintage blou karaokemikrofoon" loading="lazy"/>
     </div>
     <div class="spotify-layout">
@@ -1252,7 +1402,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 </section>
 <section class="section closing-card" id="finale"><h2>Kom ons rock ’n’ roll!</h2></section>
 </main>
-<footer class="footer">Wanneer ek sewentig is... · 31 Desember 2026 · Noordheuwel</footer>
+<footer class="footer">DvE 1956 · 31 Desember 2026 · Noordheuwel</footer>
 <script>
 const GOOGLE_DRIVE_PHOTO_FEED_URL = "https://script.google.com/macros/s/AKfycbyaEMBcOb0-FisrU5Zm3yi4w9ptceioZ2Ng8PJJJq0G6KBGcEPNdmloexOXgNlugCHe/exec";
 const FALLBACK_IMAGES = [
