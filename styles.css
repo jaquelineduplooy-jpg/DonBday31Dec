@@ -1465,3 +1465,53 @@ header.hero .hero-visual::after {
 #memories .reel-action{cursor:pointer;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.26);border-radius:999px;color:#fff;padding:8px 14px;font:700 .76rem/1.4 system-ui,sans-serif}
 #memories .reel-action:hover,#memories .reel-action:focus-visible{background:rgba(255,255,255,.19)}
 #memories .film-frame img{object-fit:cover;object-position:center}
+
+
+/* V30 — Memory Reel: photograph-first framing, with zero subject cropping.
+   Previous object-fit: cover enlarged portraits and removed heads/people.
+   The softened duplicate only fills the unused frame background; the photo
+   itself is always displayed completely, at its natural aspect ratio. */
+#memories .film-frame {
+  position: relative;
+  isolation: isolate;
+  background: #0b2039;
+}
+#memories .film-frame .film-frame-ambient {
+  position: absolute;
+  z-index: 0;
+  inset: -16px;
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+  max-width: none;
+  object-fit: cover !important;
+  object-position: center !important;
+  image-orientation: from-image;
+  filter: blur(17px) brightness(.46) saturate(.9);
+  pointer-events: none;
+}
+#memories .film-frame::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: rgba(8, 28, 49, .08);
+  pointer-events: none;
+}
+#memories .film-frame .film-frame-photo {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  object-fit: contain !important;
+  object-position: center center !important;
+  image-orientation: from-image;
+  filter: none !important;
+  transform: none !important;
+}
+@media (max-width: 620px) {
+  #memories .film-frame .film-frame-photo { padding: 3px; }
+}

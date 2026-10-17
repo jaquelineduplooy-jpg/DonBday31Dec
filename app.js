@@ -106,15 +106,31 @@ function startMemoryReel() {
     current.concat(current).forEach((src, index) => {
       const frame = document.createElement('div');
       frame.className = 'film-frame';
+      // The ambient copy fills any empty space softly. The original photo stays
+      // entirely visible in front: no cropped faces, regardless of orientation.
+      const ambient = document.createElement('img');
+      ambient.className = 'film-frame-ambient';
+      ambient.alt = '';
+      ambient.setAttribute('aria-hidden', 'true');
+      ambient.src = src;
+      ambient.loading = 'eager';
+      ambient.decoding = 'async';
+
       const img = document.createElement('img');
+      img.className = 'film-frame-photo';
       img.alt = 'Familieherinnering ' + (index % current.length + 1);
       img.src = src;
-      // Animated elements that start out off-screen should not be lazy-loaded.
+      // Moving off-screen images must load in time to appear in the reel.
       img.loading = 'eager';
       img.decoding = 'async';
       const safe = MEMORY_BACKUP[index % MEMORY_BACKUP.length];
-      img.onerror = () => { if (img.src !== new URL(safe, window.location.href).href) img.src = safe; };
-      frame.appendChild(img);
+      img.onerror = () => {
+        if (img.src !== new URL(safe, window.location.href).href) {
+          img.src = safe;
+          ambient.src = safe;
+        }
+      };
+      frame.append(ambient, img);
       fragment.appendChild(frame);
     });
     track.replaceChildren(fragment);

@@ -1,4 +1,4 @@
-DvE 1956 | V29 VOLLEDIGE SKOON WEBWERF
+DvE 1956 | V30 MEMORY REEL - FOTOS PAS BINNE DIE RAME
 ======================================
 
 BESTANDE
@@ -38,3 +38,14 @@ RSVP
 BELANGRIK
 - Lewendige Google Drive-/Vercel-konneksies kan eers finaal na ontplooiing bevestig word.
 - Die Memory Reel vertoon die oorspronklike Drive-vouer se fotos mits die bestaande foto-feed beskikbaar is.
+
+
+V30 - FOTO-PAS REGSTELLING (17 OKTOBER 2026)
+------------------------------------------------
+- Alle foto-elemente in die Memory Reel word nou volledig vertoon, sonder om die kante of mense se koppe te sny.
+- Elke foto behou sy oorspronklike verhoudings (object-fit: contain).
+- 'n Subtiele, vervaagde weergawe van dieselfde foto vul leë raamspasie sonder om die hoofprent te sny.
+- Die oorspronklike foto se EXIF-rotasie word gerespekteer (image-orientation: from-image).
+- Die Google Drive-foto-feed, skommel/reel, stop/hervat, RSVP en alle ander ontwerp is ongewysig behou.
+- Die vyf plaaslike RUGSTEUNprente kom uit ou skermskote en bevat reeds vooraf-uitgesnyde rande. CSS kan nie oorspronklik ontbrekende dele terugbring nie. Die regstreekse Google Drive-foto's word wel sonder verdere snitte vertoon.
+- Die nuwe CSS en JS laai met weergawe ?v=30.0 om ou kas-kopiee te omseil.
