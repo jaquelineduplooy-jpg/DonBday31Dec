@@ -1,12 +1,32 @@
-WHEN I’M SEVENTY — FINAL V20-BASED WEBSITE
+WHEN I’M SEVENTY — V20: GOOGLE SHEETS RSVP CONNECTION
 
-1. Unzip and upload index.html plus the assets/ folder to the existing Vercel site.
-2. Google Sheets RSVP: create a PRIVATE Google Sheet. Open Extensions > Apps Script; paste GOOGLE_SHEETS_RSVP_APPS_SCRIPT.gs; run setup() to authorise and create the guest list and summary.
-3. Deploy > New deployment > Web app. Execute as: Me. Access: Anyone (guests can submit without signing in). Copy the deployment's /exec URL.
-4. In index.html replace PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE with that exact URL (also replace in preview.html if using that locally).
-5. Redeploy to Vercel and test a Yes RSVP and a No RSVP. Check both the SeventyRSVPs sheet and the automatic Headcount summary. KEEP the Sheet private.
+Target Google Sheet (provided by organiser):
+https://docs.google.com/spreadsheets/d/10eqUEZeiPZe_Ap6g9lv0b8bRIRAcQniIEKPB9UVS6Xg/edit
 
-The RSVP page does not secretly record guests until the Apps Script URL is configured. The website does not take payment or collect email addresses.
-The site's vinyl picture is supplied as assets/spotify-vinyl-cover.png; updating the Spotify account's own playlist cover must be done separately in Spotify.
-The Memory Reel continues to load the existing Google Drive photo feed if available. Until family photos are added/accessible, fallback images are theme placeholders.
-No live hosting or Google Sheet connection was performed automatically.
+The website form now uses THREE inputs: Name, Number of People, and Yes/No.
+The Google Apps Script bundled here is preconfigured with the exact destination Sheet ID.
+
+AUTHORIZE THE CONNECTION — one-time steps for the spreadsheet owner:
+1. Open your Google Sheet URL above with an account that has edit access.
+2. Click Extensions > Apps Script.
+3. Paste GOOGLE_SHEETS_RSVP_APPS_SCRIPT.gs into Code.gs and save.
+4. Choose the setup function from the function menu, click Run, and authorize access.
+   This adds RSVPs and Headcount tabs without wiping any existing confirmation data.
+5. Select Deploy > New deployment > Web app.
+   Execute as: Me. Who has access: Anyone. Click Deploy. Grant permission if asked.
+6. Copy the Web App URL ending in /exec.
+7. In BOTH index.html and preview.html, replace:
+   PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE
+   with that exact /exec URL.
+8. Deploy the website package to Vercel.
+9. Test one Yes (two people), and one No (zero people). Confirm entries and
+   the running total in the Headcount tab of your original Google Sheet.
+
+IMPORTANT: Until the Google Web App has been deployed and the /exec URL is filled
+in, the RSVP form will show that collection has not been connected yet; it does
+not pretend to submit successfully. Simply sharing a Google Sheet URL does not
+make it possible for anonymous website guests to write into it.
+
+Record player: The Shadows 'Apache' record animation spins visually on the page.
+The animation does not stream the recording; Spotify provides playback via its
+own player and any Spotify account/device restrictions.

@@ -931,6 +931,106 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
  .closing-card{padding:48px 26px}
 }
 </style>
+
+<style id="v22-animated-turntable-update">
+.hero-visual{overflow:hidden!important}
+.hero-visual>img{object-position:center center!important}
+.turntable-card{margin-top:24px;border-radius:22px;overflow:hidden;background:linear-gradient(155deg,#ecf5fc,#d9e8f7);border:1px solid rgba(29,82,131,.14);box-shadow:0 18px 46px rgba(10,38,68,.10)}
+.turntable-card .turntable-scene{position:relative;min-height:270px;padding:20px 18px 18px;background:
+  linear-gradient(145deg,rgba(255,255,255,.82),rgba(231,241,249,.92)),
+  url('assets/vinyl-sunset-backdrop.png') center/cover no-repeat;}
+.turntable-card .turntable-scene::after{content:"";position:absolute;inset:auto 22px 18px 22px;height:16px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(9,39,67,.18),rgba(9,39,67,0));filter:blur(7px)}
+.turntable-kicker{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;position:relative;z-index:2}
+.turntable-kicker span{font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:#174f91}
+.turntable-nowplaying{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(11,44,85,.08);border:1px solid rgba(11,44,85,.10);font-size:.7rem;color:#103e6d;font-weight:800}
+.turntable-nowplaying::before{content:"";width:8px;height:8px;border-radius:50%;background:#1f7cff;box-shadow:0 0 0 6px rgba(31,124,255,.12)}
+.turntable-stage{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.08fr;gap:18px;align-items:center}
+.record-sleeve{position:relative;min-height:178px;border-radius:18px;overflow:hidden;background:linear-gradient(155deg,#113b63,#275989 65%,#4f7baa);box-shadow:0 18px 38px rgba(9,39,67,.18)}
+.record-sleeve::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 46%)}
+.record-sleeve::after{content:"";position:absolute;right:-56px;top:50%;transform:translateY(-50%);width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at center,rgba(255,255,255,.10),rgba(255,255,255,0) 62%)}
+.sleeve-copy{position:relative;z-index:1;padding:20px;color:white;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.sleeve-copy small{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:#c8dced;font-weight:900}
+.sleeve-copy strong{display:block;margin-top:8px;font-family:Georgia,"Times New Roman",serif;font-size:2.2rem;font-weight:400;line-height:.95;letter-spacing:-.04em}
+.sleeve-copy em{font-style:normal;color:#ecf5fc;font-size:.95rem;margin-top:8px}
+.turntable-player{position:relative;min-height:208px;border-radius:22px;padding:16px;background:linear-gradient(155deg,#102d4b,#163a5f 65%,#24527d);box-shadow:0 20px 40px rgba(10,38,68,.22)}
+.turntable-player::before{content:"";position:absolute;inset:10px;border-radius:16px;border:1px solid rgba(255,255,255,.10)}
+.turntable-platter{position:absolute;left:18px;top:18px;width:178px;height:178px;border-radius:50%;background:radial-gradient(circle at center,#1b3856 0 8%,#0c2037 8% 12%,#131313 12% 60%,#0c0c0c 60%);box-shadow:inset 0 0 0 4px rgba(255,255,255,.06), 0 18px 30px rgba(0,0,0,.22)}
+.turntable-record{position:absolute;left:18px;top:18px;width:178px;height:178px;border-radius:50%;background:repeating-radial-gradient(circle at center,#181818 0 3px,#111 3px 6px);display:grid;place-items:center;animation:spinVinyl 5.8s linear infinite;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.turntable-record::before{content:"";position:absolute;inset:18px;border-radius:50%;border:1px solid rgba(255,255,255,.05)}
+.record-label{width:72px;height:72px;border-radius:50%;background:#e5d4aa;display:grid;place-items:center;text-align:center;padding:7px;line-height:1.05;box-shadow:0 0 0 3px rgba(0,0,0,.08)}
+.record-label span{display:block;font-size:.42rem;letter-spacing:.10em;font-weight:900;color:#0b2c55}
+.record-label b{display:block;font-size:.92rem;font-family:Georgia,"Times New Roman",serif;font-weight:700;color:#0c2540;margin-top:4px}
+.record-label small{display:block;font-size:.34rem;letter-spacing:.16em;text-transform:uppercase;color:#49647f;margin-top:4px}
+.turntable-center{position:absolute;width:8px;height:8px;border-radius:50%;background:#092846;box-shadow:0 0 0 3px rgba(255,255,255,.22)}
+.turntable-arm-base{position:absolute;right:26px;bottom:28px;width:24px;height:24px;border-radius:50%;background:#d7e3ef;box-shadow:inset 0 1px 2px rgba(255,255,255,.65)}
+.turntable-arm{position:absolute;right:44px;bottom:46px;width:110px;height:8px;border-radius:999px;background:linear-gradient(90deg,#dfe7ef,#aebcd0);transform-origin:right center;transform:rotate(-29deg);box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.turntable-arm::before{content:"";position:absolute;left:-10px;top:50%;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;background:#eaf1f8;border:2px solid #aebcd0}
+.turntable-arm::after{content:"";position:absolute;right:-8px;top:50%;transform:translateY(-50%) rotate(16deg);width:16px;height:12px;border-radius:3px;background:linear-gradient(180deg,#f6f8fb,#c6d3e2)}
+.turntable-bars{position:absolute;right:24px;top:26px;display:flex;gap:5px;align-items:flex-end;height:54px}
+.turntable-bars span{width:8px;border-radius:999px;background:linear-gradient(180deg,#bdd6ec,#5e92c6);animation:bounceBar 1s ease-in-out infinite}
+.turntable-bars span:nth-child(1){height:18px;animation-delay:.1s}
+.turntable-bars span:nth-child(2){height:30px;animation-delay:.3s}
+.turntable-bars span:nth-child(3){height:44px;animation-delay:.5s}
+.turntable-bars span:nth-child(4){height:26px;animation-delay:.2s}
+.turntable-songline{position:absolute;right:24px;bottom:24px;max-width:108px;color:#d7e6f4;text-align:right}
+.turntable-songline strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1.26rem;font-weight:400;line-height:.95;letter-spacing:-.03em}
+.turntable-songline span{display:block;margin-top:7px;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#b5cde3;font-weight:800}
+.turntable-songline small{display:block;margin-top:4px;font-size:.8rem;color:#edf5fb}
+@keyframes spinVinyl{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes bounceBar{0%,100%{transform:scaleY(.52);opacity:.78}50%{transform:scaleY(1);opacity:1}}
+.elvis-music-photo{width:100%;height:352px;object-fit:contain!important;object-position:center center!important;background:linear-gradient(180deg,#eef5fb,#dce8f3)!important;padding:10px;border-radius:18px;filter:none!important}
+.music-vinyl{object-fit:cover!important;background:#0e345a;border:1px solid rgba(16,62,109,.10);box-shadow:0 12px 24px rgba(10,38,68,.12)}
+@media(max-width:960px){
+  .turntable-stage{grid-template-columns:1fr;gap:14px}
+  .record-sleeve{min-height:156px}
+  .turntable-player{min-height:240px}
+  .turntable-platter,.turntable-record{width:164px;height:164px}
+  .turntable-songline{max-width:124px}
+}
+@media(max-width:620px){
+  .turntable-card{margin-top:18px;border-radius:18px}
+  .turntable-card .turntable-scene{min-height:0;padding:16px}
+  .turntable-kicker{gap:8px;align-items:flex-start;flex-direction:column}
+  .record-sleeve{min-height:138px}
+  .sleeve-copy strong{font-size:1.8rem}
+  .turntable-player{min-height:222px;padding:14px}
+  .turntable-platter,.turntable-record{left:14px;top:14px;width:138px;height:138px}
+  .record-label{width:60px;height:60px}
+  .turntable-bars{right:18px;top:18px;height:44px}
+  .turntable-bars span{width:6px}
+  .turntable-arm{right:36px;bottom:38px;width:88px}
+  .turntable-arm-base{right:20px;bottom:22px}
+  .turntable-songline{right:18px;bottom:18px;max-width:100px}
+  .turntable-songline strong{font-size:1.08rem}
+  .turntable-songline small{font-size:.72rem}
+}
+</style>
+
+<style id="v23-visible-hero-shadows-playback">
+/* Preserve every edge of the approved montage while filling the frame with a subtle blurred echo. */
+.hero-visual{background:#081e35!important;isolation:isolate!important}
+.hero-visual::before{content:"";position:absolute;inset:-32px;background:url('assets/hero-memory-collage.png') center/cover no-repeat;filter:blur(24px) brightness(.48);z-index:0}
+.hero-visual>img{position:relative!important;z-index:1!important;display:block!important;max-width:100%!important;width:100%!important;height:100%!important;transform:none!important;object-fit:contain!important;object-position:center!important;filter:none!important}
+.shadows-turntable{margin-top:24px;background:linear-gradient(155deg,#e4eef8,#f7fbff);border:1px solid rgba(29,82,131,.16);border-radius:22px;overflow:hidden;box-shadow:0 14px 35px rgba(11,35,61,.13)}
+.shadows-cover{position:relative;isolation:isolate;background:#123c60}
+.shadows-cover>img{display:block;width:100%;height:auto;aspect-ratio:1916/821;object-fit:cover;filter:none!important}
+.shadows-label-perspective{position:absolute;z-index:2;left:58.9%;top:47.4%;width:15%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(.52);filter:drop-shadow(0 1px 2px rgba(0,0,0,.32))}
+.shadows-spinning-label{height:100%;width:100%;border-radius:50%;background:radial-gradient(circle at center,#4b7e93 0 8%,#126482 8% 84%,#07354e 84%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#faf7e4;text-align:center;font-family:Georgia,"Times New Roman",serif;animation:shadowsSpin 5.6s linear infinite}
+.shadows-spinning-label::after{position:absolute;content:"";height:5px;width:5px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:#e0e0d2}
+.shadows-spinning-label span{font-weight:bold;font-size:clamp(.22rem,.68vw,.68rem);font-style:italic;line-height:1.1}
+.shadows-spinning-label b{font-size:clamp(.23rem,.74vw,.76rem);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+.shadows-spinning-label i{font-size:clamp(.15rem,.42vw,.5rem);font-style:normal;margin-top:3px}
+@keyframes shadowsSpin{to{transform:rotate(360deg)}}
+.shadows-listen{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:14px 17px}
+.shadows-copy{display:grid;gap:3px}.shadows-copy strong{font:500 1.45rem Georgia,serif;color:#082b4b}.shadows-copy span{font-size:.8rem;color:#54718d}
+.shadows-playlink{padding:12px 16px;border-radius:999px;background:#0b345b;color:#fff;text-decoration:none;font-size:.7rem;letter-spacing:.065em;text-transform:uppercase;font-weight:900;white-space:nowrap}
+.shadows-playlink:hover{background:#1c5c92}
+.shadows-track{display:block;width:calc(100% - 28px);height:80px;margin:0 14px 14px;border:0;border-radius:13px;background:#122d4c}
+.elvis-music-photo{object-fit:contain!important;object-position:center center!important;background:#e4edf6!important;padding:0!important}
+@media(max-width:960px){.hero-visual>img{object-fit:contain!important;transform:none!important;height:100%!important}}
+@media(max-width:620px){.shadows-listen{flex-direction:column;align-items:flex-start}.shadows-playlink{width:100%;text-align:center}.shadows-track{height:80px}}
+@media(prefers-reduced-motion:reduce){.shadows-spinning-label{animation:none!important}}
+</style>
 </head>
 <body>
 <nav class="nav">
@@ -945,13 +1045,13 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <h1>When I’m<br/>Seventy...</h1>
 <p class="hero-sub">70 Years of Sun, Fun &amp; Adventure</p>
 <span class="hero-date">31 December 2026 · 14:00</span>
-<p class="hero-lead">Fishing stories, rugby Saturdays, karaoke favourites and seventy years of family memories. Kids and grandkids welcome — tell us who will join in!</p>
+
 <p class="hero-tagline">Sun. Fun. Rock ’n’ roll.<br/><span>And one very good reason to celebrate.</span></p>
 <div class="button-row"><a class="button primary" href="#rsvp">Accept the invitation</a><a class="button secondary" href="#soundtrack">Play the playlist</a></div>
 </div>
-<div class="hero-visual"><img alt="Vintage fishing tackle, Transvaal Lions rugby memorabilia and a blue coffee thermos at sunset" decoding="async" fetchpriority="high" src="assets/hero-fishing-lions-coffee.jpg"/></div>
+<div class="hero-visual"><img alt="Vintage collage of rugby, fishing, Beach Boys music, Elvis, and family memories by the water" decoding="async" fetchpriority="high" src="assets/hero-memory-collage.png"/></div>
 </header>
-<section aria-label="Celebration details" class="quick-summary" id="road"><div class="quickbar"><div class="quick-item"><b>31 DEC</b><strong>New Year's Eve</strong><em>Thursday · 2026</em></div><div class="quick-item"><b>14:00</b><strong>Let the fun begin</strong><em>Lunch &amp; celebration</em></div><div class="quick-item"><b>13</b><strong>Bruyn Street</strong><em>Noordheuwel</em></div><div class="quick-item"><b>ALL</b><strong>Everyone welcome</strong><em>Kids & grandkids too!</em></div><div class="quick-item"><b>RSVP</b><strong>By mid-November</strong><em>Help us plan the feast</em></div></div></section>
+<section aria-label="Celebration details" class="quick-summary" id="road"><div class="quickbar"><div class="quick-item"><b>31 DEC</b><strong>New Year's Eve</strong><em>Thursday · 2026</em></div><div class="quick-item"><b>14:00</b><strong>Let the fun begin</strong><em>Lunch &amp; Celebration</em></div><div class="quick-item"><b>13</b><strong>Bruyn Street</strong><em>Noordheuwel</em></div><div class="quick-item"><b>ALL</b><strong>Everyone welcome</strong><em>Kids & Grandkids too!</em></div><div class="quick-item"><b>RSVP</b><strong>By 15 November</strong><em>Confirm by 15 November 2026</em></div></div></section>
 <main>
 <section class="section combined-invite" id="rsvp">
  <div class="card invitation-panel">
@@ -961,7 +1061,17 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
    <p class="intro-verse">Inspired by <em>The Beatles’ “When I’m Sixty-Four”</em> — but Dad is turning seventy!</p>
    <p>Seventy years of fishing tales, rugby Saturdays, live music, karaoke and the people who make it all worthwhile.</p>
    <p class="invite-note">Family, friends, kids and grandkids are all welcome. Just let us know how many will be joining.</p>
-   <img src="assets/beatles-vinyl.jpg" alt="Vintage Beatles-era vinyl record artwork" loading="lazy" class="beatles-picture"/>
+   <div class="shadows-turntable" aria-label="Spinning Shadows Apache vinyl record with Spotify playback">
+  <div class="shadows-cover">
+    <img src="assets/vinyl-sunset-backdrop.png" alt="Vintage record player with The Shadows Apache sleeve, fishing tackle and sunset" loading="eager"/>
+    <div class="shadows-label-perspective" aria-hidden="true"><div class="shadows-spinning-label"><span>The Shadows</span><b>Apache</b><i>45 RPM</i></div></div>
+  </div>
+  <div class="shadows-listen">
+    <div class="shadows-copy"><strong>Apache</strong><span>The Shadows · 1960</span></div>
+    <a href="https://open.spotify.com/track/0E7Ehb8MIaV7ctdPJ2R4uv" target="_blank" rel="noopener noreferrer" class="shadows-playlink">Listen on Spotify ↗</a>
+  </div>
+  <iframe class="shadows-track" src="https://open.spotify.com/embed/track/0E7Ehb8MIaV7ctdPJ2R4uv?utm_source=generator" title="Play Apache by The Shadows" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
   </div>
   <div class="rsvp-panel">
     <div class="kicker">You’re invited</div>
@@ -988,7 +1098,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <div class="card memory-card">
 <div class="memory-top">
 <div><div class="kicker">Memory Reel</div><h2 class="section-title">Moments to Remember</h2></div>
-<p class="memory-copy">The reel stays. Family memories before the day, photos as the celebration happens, and the good ones we will still be sharing afterwards.</p>
+<p class="memory-copy">Family memories before the day, photos as the celebration happens, and the good ones we will still be sharing afterwards.</p>
 </div>
 <div class="film-window"><div class="film-track" id="memoryTrack"></div></div>
 <div class="share-note"><div><h3>Share your favourite memories</h3><p>Send photographs directly to the organiser to add to the celebration reel.</p></div></div>
@@ -998,14 +1108,14 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
   <div class="card soundtrack-revised">
     <div class="soundtrack-head">
       <div><div class="kicker">The soundtrack</div><h2 class="section-title">Turn it up.</h2><p class="section-intro">Elvis, The Beatles, The Beach Boys and all the songs worth singing along to.</p></div>
-      <img src="assets/spotify-vinyl-cover.png" class="music-vinyl" alt="When I'm Seventy vintage vinyl album artwork" loading="lazy"/>
+      <img src="assets/karaoke-mic-blue.png" class="music-vinyl" alt="Vintage blue karaoke microphone artwork" loading="lazy"/>
     </div>
     <div class="spotify-layout">
       <div class="spotify-player">
         <iframe src="https://open.spotify.com/embed/playlist/0K93afeWZDNAKaFpOeS1Pa?utm_source=generator" title="Birthday playlist on Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         <a class="button secondary" href="https://open.spotify.com/playlist/0K93afeWZDNAKaFpOeS1Pa" target="_blank" rel="noopener noreferrer">Open Spotify playlist ↗</a>
       </div>
-      <img src="assets/elvis-music.jpg" class="elvis-music-photo" loading="lazy" alt="Vintage Elvis rock and roll music collage with microphone and 1960s atmosphere"/>
+      <img src="assets/elvis-music.jpg" class="elvis-music-photo" loading="lazy" alt="Elvis-era rock and roll collage, retro microphone and classic beach holiday photographs"/>
     </div>
   </div>
 </section>
@@ -1038,7 +1148,11 @@ function makeFrames(track,urls){
   track.parentElement.addEventListener("touchstart",()=>paused=true,{passive:true}); track.parentElement.addEventListener("touchend",()=>paused=false);
   window.addEventListener("resize",()=>{loopWidth=0}); step();
 }
-loadDriveImages().then(urls=>makeFrames(document.getElementById("memoryTrack"),urls));
+// Show local memory images immediately; replace them if the connected Drive feed responds.
+makeFrames(document.getElementById("memoryTrack"), FALLBACK_IMAGES);
+loadDriveImages().then(urls=>{
+  if(urls.length && urls.join('\n') !== FALLBACK_IMAGES.join('\n')) makeFrames(document.getElementById("memoryTrack"),urls);
+});
 </script>
 <script>
 // Connect your deployed private Google Sheets Apps Script URL before inviting guests.
@@ -1052,7 +1166,7 @@ const setCount = n => {count.value = Math.max(1,Math.min(50,Math.trunc(Number(n)
 document.getElementById('countMinus').addEventListener('click',()=>setCount(Number(count.value)-1));
 document.getElementById('countPlus').addEventListener('click',()=>setCount(Number(count.value)+1));
 count.addEventListener('change',()=>setCount(count.value));
-radios.forEach(r=>r.addEventListener('change',()=>{ const attending = isGoing(); count.disabled = !attending; document.querySelector('.people-field').classList.toggle('not-attending',!attending); status.textContent=attending?'Wonderful! Tell us how many to expect.':'Thank you for letting us know.';}));
+radios.forEach(r=>r.addEventListener('change',()=>{ const attending = isGoing(); if(attending && Number(count.value)<1)count.value='1'; count.disabled = !attending; document.querySelector('.people-field').classList.toggle('not-attending',!attending); status.textContent=attending?'Wonderful! Tell us how many to expect.':'Thank you for letting us know.';}));
 form.addEventListener('submit',event=>{
   if(!RSVP_SCRIPT_URL.startsWith('https://script.google.com/macros/s/')){
     event.preventDefault();
@@ -1070,7 +1184,7 @@ form.addEventListener('submit',event=>{
   status.textContent='Submitting your RSVP…';
 });
 window.addEventListener('message',event=>{
-  if(event.origin!=='https://script.google.com' && event.origin!=='https://script.googleusercontent.com')return;
+  if(event.origin!=='https://script.google.com' && event.origin!=='https://script.googleusercontent.com' && !event.origin.endsWith('.googleusercontent.com'))return;
   if(!event.data || event.data.type!=='birthday-rsvp')return;
   document.getElementById('rsvpSubmit').disabled=false;
   status.textContent=event.data.ok?'Thank you! Your RSVP has been recorded.':'Sorry, your reply could not be saved. Please try again.';
