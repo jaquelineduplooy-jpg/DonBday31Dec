@@ -930,6 +930,11 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
  .spotify-player .button{width:100%}
  .closing-card{padding:48px 26px}
 }
+
+.closing-card{position:relative;overflow:hidden;isolation:isolate}
+.closing-card::before{content:"";position:absolute;inset:0;background:url("assets/hero-memory-collage-full.jpg") center/cover no-repeat;opacity:.14;filter:saturate(.95) blur(1px);transform:scale(1.03);z-index:0}
+.closing-card::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(5,27,49,.90),rgba(20,61,100,.82),rgba(37,87,133,.86));z-index:0}
+.closing-card>*{position:relative;z-index:1}
 </style>
 
 <style id="v22-animated-turntable-update">
@@ -1182,7 +1187,7 @@ body{background:linear-gradient(180deg,#f1f6fb,#dce9f6 65%,#eaf2fa)!important}
 <section class="section combined-invite" id="rsvp">
  <div class="card invitation-panel">
   <div class="invitation-story">
-   <div class="kicker">DvE 1956 · 31 Desember 2026 · Middagete, musiek &amp; memories</div>
+   <div class="kicker">31 Desember 2026 · Middagete, musiek &amp; memories</div>
    <h2 class="section-title">70 jaar van stories</h2>
    <p class="intro-verse">Visvangstories, rugby-Saterdae, lekker musiek en die mense wat die lewe besonders maak — dis wat ons saam kom vier.</p>
    <p>Kom geniet ’n ontspanne middag vol goeie kos, lag, karaoke en al die herinneringe wat nog gemaak gaan word.</p>
