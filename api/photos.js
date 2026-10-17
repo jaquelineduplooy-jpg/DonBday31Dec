@@ -1,32 +1,51 @@
-// Vercel Serverless Function. Forwards the existing, public Google Apps Script photo feed.
-// The client reads /api/photos from the same website origin to avoid browser CORS failures.
+/* Vercel serverless photo feed: same-origin gateway for the existing Google Drive Apps Script. */
 const FEED_URL = 'https://script.google.com/macros/s/AKfycbyaEMBcOb0-FisrU5Zm3yi4w9ptceioZ2Ng8PJJJq0G6KBGcEPNdmloexOXgNlugCHe/exec';
+let lastGood = [];
+let cachedUntil = 0;
+
+function toPhotos(input) {
+  const entries = Array.isArray(input) ? input :
+    input && (input.images || input.photos || input.files || input.items || input.data);
+  if (!Array.isArray(entries)) return [];
+  const result = new Set();
+  entries.forEach(item => {
+    const url = typeof item === 'string' ? item : item &&
+      (item.url || item.src || item.downloadUrl || item.thumbnailUrl || item.thumbnail ||
+       (item.id && 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(item.id) + '&sz=w800'));
+    if (typeof url !== 'string') return;
+    try {
+      if (new URL(url).protocol === 'https:') result.add(url);
+    } catch (_) { /* discard malformed URL */ }
+  });
+  return [...result];
+}
 module.exports = async function handler(req, res) {
-  if (req.method !== 'GET') { res.setHeader('Allow', 'GET'); return res.status(405).json({ error: 'Method not allowed' }); }
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
+    return res.status(405).json({error:'Method not allowed'});
+  }
+  res.setHeader('Content-Type','application/json; charset=utf-8');
+  res.setHeader('Cache-Control','public, max-age=0, s-maxage=120, stale-while-revalidate=120');
+  if (lastGood.length && Date.now() < cachedUntil) {
+    return res.status(200).json({images:lastGood,count:lastGood.length});
+  }
   try {
     const response = await fetch(FEED_URL, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(15000)
+      method:'GET',redirect:'follow',
+      headers:{Accept:'application/json'},
+      signal:AbortSignal.timeout(23000)
     });
-    if (!response.ok) throw new Error('Google photo feed HTTP ' + response.status);
+    if (!response.ok) throw new Error('Photo feed HTTP ' + response.status);
     const data = await response.json();
-    const records = Array.isArray(data) ? data :
-      (data && (data.images || data.items || data.photos || data.data)) || [];
-    if (!Array.isArray(records)) throw new Error('Unexpected photo feed response');
-    const photos = records.map((item) => {
-      if (typeof item === 'string') return item;
-      if (!item || typeof item !== 'object') return null;
-      if (item.url || item.src || item.downloadUrl || item.thumbnailUrl) {
-        return item.url || item.src || item.downloadUrl || item.thumbnailUrl;
-      }
-      if (item.id) return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(item.id) + '&sz=w800';
-      return null;
-    }).filter((url) => typeof url === 'string' && /^https:\/\//i.test(url));
-    res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=90, stale-while-revalidate=120');
-    return res.status(200).json({ images: [...new Set(photos)], count: photos.length });
-  } catch (error) {
-    console.error('Photo feed error:', error.message);
-    res.setHeader('Cache-Control', 'no-store');
-    return res.status(502).json({ images: [], error: 'Photo feed temporarily unavailable' });
+    const images = toPhotos(data);
+    if (!images.length) throw new Error('Photo feed returned no usable images');
+    lastGood = images;
+    cachedUntil = Date.now() + 120000;
+    return res.status(200).json({images,count:images.length});
+  } catch (err) {
+    console.error('DvE photos: upstream unavailable:',err.message);
+    if (lastGood.length) return res.status(200).json({images:lastGood,count:lastGood.length,stale:true});
+    res.setHeader('Cache-Control','no-store');
+    return res.status(502).json({images:[],error:'Google Drive photo feed unavailable. Verify its Apps Script deployment and folder access.'});
   }
 };
