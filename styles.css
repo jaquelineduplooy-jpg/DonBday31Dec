@@ -1515,3 +1515,12 @@ header.hero .hero-visual::after {
 @media (max-width: 620px) {
   #memories .film-frame .film-frame-photo { padding: 3px; }
 }
+
+/* V32: controls removed; discreet album health indicator (no buttons). */
+#memories .reel-controls{display:none!important}
+#memories .reel-status{font-size:.76rem;line-height:1.5;color:rgba(235,246,255,.74);margin:11px 3px 0;text-align:right;min-height:1.2em}
+#memories .reel-status[data-mode="warning"]{color:#ffdfaa;text-align:left}
+#memories .reel-status[data-mode="loading"]{color:#cedde9}
+#memories .film-frame-unavailable{background:#102b46!important}
+#memories .film-frame-unavailable::before{content:"Foto nie beskikbaar";position:absolute;inset:0;display:grid;place-items:center;z-index:3;color:#dae7f2;font:600 .78rem/1.4 system-ui,sans-serif;text-align:center;padding:14px}
+@media(max-width:620px){#memories .reel-status{font-size:.72rem}}

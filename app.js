@@ -1,7 +1,6 @@
-/* DvE 1956 - reliable family Memory Reel, Google Drive feed and RSVP */
+/* DvE 1956: continuous family photo reel. Every available photo is scheduled once
+   per shuffled cycle; a small sliding DOM buffer keeps phones responsive. */
 const GOOGLE_DRIVE_PHOTO_FEED_URL = 'https://script.google.com/macros/s/AKfycbyaEMBcOb0-FisrU5Zm3yi4w9ptceioZ2Ng8PJJJq0G6KBGcEPNdmloexOXgNlugCHe/exec';
-// Genuine family snapshots cropped from the user's earlier Memory Reel screenshots.
-// Shown immediately if the live Drive feed is inaccessible; never replace family photos with unrelated artwork.
 const MEMORY_BACKUP = [
   'assets/memories/straat-en-geskiedenis.jpg',
   'assets/memories/familie-in-die-stad.jpg',
@@ -9,203 +8,232 @@ const MEMORY_BACKUP = [
   'assets/memories/familie-aan-tafel.jpg',
   'assets/memories/familie-saam.jpg'
 ];
-const REEL_SPEED = 37; // pixels/second (noticeably moving, even on a phone)
-const REEL_SET_SIZE = 18;
+const REEL_SPEED = 60; // px/s, a new image approximately every 4-5 seconds
+const REEL_BUFFER = 12; // never create hundreds of <img> elements on an iPhone
+const REEL_REFRESH_MS = 120000;
 
 function memoryShuffle(list) {
-  const arr = list.slice();
-  for (let i = arr.length - 1; i > 0; i--) {
+  const a = list.slice();
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return arr;
+  return a;
 }
 function memoryNormalize(payload) {
   const data = Array.isArray(payload) ? payload :
     payload && (payload.images || payload.items || payload.photos || payload.files || payload.data);
   if (!Array.isArray(data)) return [];
-  const found = new Set();
-  for (const item of data) {
-    let value = typeof item === 'string' ? item : item &&
-      (item.url || item.src || item.downloadUrl || item.thumbnailUrl || item.thumbnail ||
-      (item.id ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(item.id) + '&sz=w800' : null));
+  const seen = new Set();
+  const result = [];
+  for (const entry of data) {
+    const value = typeof entry === 'string' ? entry : entry &&
+      (entry.url || entry.src || entry.downloadUrl || entry.thumbnailUrl || entry.thumbnail ||
+       (entry.id ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(entry.id) + '&sz=w800' : null));
     if (typeof value !== 'string') continue;
     try {
-      const parsed = new URL(value.trim(), window.location.href);
-      if (parsed.protocol === 'https:' || parsed.protocol === 'http:') found.add(parsed.href);
+      const url = new URL(value.trim(), window.location.href);
+      if (url.protocol !== 'https:' && url.protocol !== 'http:') continue;
+      if (!seen.has(url.href)) {
+        seen.add(url.href);
+        result.push(url.href);
+      }
     } catch (_) { /* ignore invalid URLs */ }
   }
-  return Array.from(found);
+  return result;
 }
-async function memoryFetch(endpoint, maxWait) {
+async function memoryFetch(endpoint, timeout) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), maxWait);
+  const timer = setTimeout(() => controller.abort(), timeout);
   try {
-    const response = await fetch(endpoint, {
-      method:'GET', cache:'no-store', signal:controller.signal,
-      headers:{'Accept':'application/json'}
+    const res = await fetch(endpoint, {
+      method: 'GET', cache: 'no-store', signal: controller.signal,
+      headers: { Accept: 'application/json' }
     });
-    if (!response.ok) throw Error('HTTP ' + response.status);
-    const images = memoryNormalize(await response.json());
-    if (!images.length) throw Error('Geen foto’s in die antwoord nie');
-    return images;
+    if (!res.ok) throw new Error('Photo feed HTTP ' + res.status);
+    const photos = memoryNormalize(await res.json());
+    if (!photos.length) throw new Error('Geen foto’s beskikbaar in die foto-album nie');
+    return photos;
   } finally { clearTimeout(timer); }
 }
 async function memoryGetLivePhotos() {
-  // Vercel API works without Google Apps Script CORS; direct URL helps in standalone previews.
-  const attempts = [
-    memoryFetch('/api/photos', 17000),
-    memoryFetch(GOOGLE_DRIVE_PHOTO_FEED_URL, 16000)
-  ];
-  return Promise.any(attempts);
+  // Same-origin serverless API avoids Apps Script browser CORS restrictions.
+  // The original direct feed is a fallback when viewing an exported preview.
+  return Promise.any([
+    memoryFetch('/api/photos', 18000),
+    memoryFetch(GOOGLE_DRIVE_PHOTO_FEED_URL, 17000)
+  ]);
 }
-function memoryCheckImage(src, maxWait=6000) {
+function memoryCheckImage(src, timeout = 5500) {
   return new Promise(resolve => {
-    const image = new Image();
-    let done = false;
+    const img = new Image();
+    let settled = false;
     const finish = ok => {
-      if(done) return;
-      done = true;
+      if (settled) return;
+      settled = true;
       clearTimeout(timer);
-      image.onload = image.onerror = null;
+      img.onload = img.onerror = null;
       resolve(ok);
     };
-    const timer = setTimeout(() => finish(false), maxWait);
-    image.onload = () => finish(image.naturalWidth > 0);
-    image.onerror = () => finish(false);
-    image.src = src;
+    const timer = setTimeout(() => finish(false), timeout);
+    img.onload = () => finish(img.naturalWidth > 0);
+    img.onerror = () => finish(false);
+    img.src = src;
   });
 }
 function startMemoryReel() {
   const track = document.getElementById('memoryTrack');
+  const status = document.getElementById('reelStatus');
   if (!track) return;
-  const view = track.closest('.film-window');
-  const pauseButton = document.getElementById('reelPauseButton');
-  const reloadButton = document.getElementById('reelReloadButton');
-  let photos = MEMORY_BACKUP.slice();
-  let current = [];
-  let previousFirst = '';
-  let offset = 0;
-  let distance = 0;
-  let previousTime = 0;
-  let paused = false;
+
+  let photoList = MEMORY_BACKUP.slice();
+  let shuffledDeck = [];
+  let deckIndex = 0;
+  let lastPhoto = '';
+  let listSignature = '';
+  let live = false;
   let fetching = false;
-  let lastLive = false;
+  let offset = 0;
+  let previousTime = 0;
+  let brokenPhotos = 0;
 
-  function nextSelection() {
-    current = memoryShuffle(photos).slice(0, Math.min(photos.length, REEL_SET_SIZE));
-    if (current.length > 1 && current[0] === previousFirst) {
-      current.push(current.shift());
-    }
-    previousFirst = current[0] || '';
+  function showStatus(message, mode) {
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.mode = mode;
   }
-  function paint() {
-    if (!current.length) return;
-    const fragment = document.createDocumentFragment();
-    // Two identical, adjoining sets make the leftward motion seamless.
-    current.concat(current).forEach((src, index) => {
-      const frame = document.createElement('div');
-      frame.className = 'film-frame';
-      // The ambient copy fills any empty space softly. The original photo stays
-      // entirely visible in front: no cropped faces, regardless of orientation.
-      const ambient = document.createElement('img');
-      ambient.className = 'film-frame-ambient';
-      ambient.alt = '';
-      ambient.setAttribute('aria-hidden', 'true');
-      ambient.src = src;
-      ambient.loading = 'eager';
-      ambient.decoding = 'async';
-
-      const img = document.createElement('img');
-      img.className = 'film-frame-photo';
-      img.alt = 'Familieherinnering ' + (index % current.length + 1);
-      img.src = src;
-      // Moving off-screen images must load in time to appear in the reel.
-      img.loading = 'eager';
-      img.decoding = 'async';
-      const safe = MEMORY_BACKUP[index % MEMORY_BACKUP.length];
-      img.onerror = () => {
-        if (img.src !== new URL(safe, window.location.href).href) {
-          img.src = safe;
-          ambient.src = safe;
-        }
-      };
-      frame.append(ambient, img);
-      fragment.appendChild(frame);
-    });
-    track.replaceChildren(fragment);
-    offset = 0;
-    distance = 0;
-    previousTime = 0;
-    track.style.transform = 'translate3d(0px,0,0)';
-  }
-  function measure() {
-    const first = track.children[0];
-    const second = track.children[current.length];
-    const result = first && second ? second.offsetLeft - first.offsetLeft : 0;
-    return Number.isFinite(result) && result > 0 ? result : 0;
-  }
-  function frame(time) {
-    // Never pause on swipe/touch: iPhones otherwise get stuck after a swipe.
-    const dt = previousTime ? Math.min(Math.max((time - previousTime)/1000,0),.15) : 0;
-    previousTime = time;
-    if (!paused && !document.hidden && current.length) {
-      if (!distance) distance = measure();
-      if (distance > 0) {
-        offset -= dt * REEL_SPEED;
-        if (-offset >= distance) {
-          nextSelection();
-          paint();
-        } else {
-          track.style.transform = 'translate3d(' + offset.toFixed(2) + 'px,0,0)';
-        }
+  function nextPhoto() {
+    if (deckIndex >= shuffledDeck.length) {
+      shuffledDeck = memoryShuffle(photoList);
+      deckIndex = 0;
+      if (shuffledDeck.length > 1 && shuffledDeck[0] === lastPhoto) {
+        const next = shuffledDeck[0];
+        shuffledDeck[0] = shuffledDeck[1];
+        shuffledDeck[1] = next;
       }
     }
-    requestAnimationFrame(frame);
+    const src = shuffledDeck[deckIndex++];
+    lastPhoto = src;
+    return src;
+  }
+  function photoFrame(src) {
+    const frame = document.createElement('div');
+    frame.className = 'film-frame';
+    const ambient = document.createElement('img');
+    ambient.className = 'film-frame-ambient';
+    ambient.alt = '';
+    ambient.setAttribute('aria-hidden', 'true');
+    ambient.loading = 'eager';
+    ambient.decoding = 'async';
+    const img = document.createElement('img');
+    img.className = 'film-frame-photo';
+    img.alt = 'Familieherinnering';
+    img.loading = 'eager';
+    img.decoding = 'async';
+    frame.append(ambient, img);
+
+    let tries = 0;
+    img.addEventListener('error', () => {
+      if (frame.classList.contains('film-frame-unavailable')) return;
+      if (!live || tries >= 3) {
+        frame.classList.add('film-frame-unavailable');
+        ambient.removeAttribute('src');
+        img.removeAttribute('src');
+        brokenPhotos++;
+        if (live) showStatus('Sommige foto’s kan nie gelaai word nie. Kontroleer die Google Drive-toestemmings.', 'warning');
+        return;
+      }
+      // Skip inaccessible Drive pictures, rather than repeating the same five backups.
+      tries++;
+      setSource(nextPhoto());
+    });
+    function setSource(value) {
+      frame.dataset.photo = value;
+      ambient.src = value;
+      img.src = value;
+    }
+    setSource(src);
+    return frame;
+  }
+  function restartStrip() {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < REEL_BUFFER; i++) fragment.appendChild(photoFrame(nextPhoto()));
+    track.replaceChildren(fragment);
+    offset = 0;
+    previousTime = 0;
+    track.style.transform = 'translate3d(0,0,0)';
+  }
+  function frameStep() {
+    const first = track.firstElementChild;
+    const second = first && first.nextElementSibling;
+    return first && second ? Math.max(0, second.offsetLeft - first.offsetLeft) : 0;
+  }
+  function animate(time) {
+    const dt = previousTime ? Math.min(Math.max((time - previousTime) / 1000, 0), .15) : 0;
+    previousTime = time;
+    if (!document.hidden && track.childElementCount && dt > 0) {
+      offset -= dt * REEL_SPEED;
+      let step = frameStep();
+      let safety = 0;
+      while (step > 0 && -offset >= step && safety++ < 5) {
+        offset += step;
+        track.firstElementChild.remove();
+        track.appendChild(photoFrame(nextPhoto()));
+        step = frameStep();
+      }
+      track.style.transform = 'translate3d(' + offset.toFixed(2) + 'px,0,0)';
+    }
+    requestAnimationFrame(animate);
   }
   async function reload() {
     if (fetching) return;
     fetching = true;
-    if (reloadButton) reloadButton.disabled = true;
     try {
-      const result = await memoryGetLivePhotos();
-      // Verify that at least one Drive thumbnail is actually publicly viewable.
-      const sample = memoryShuffle(result).slice(0, Math.min(result.length, 4));
-      const checks = await Promise.all(sample.map(src => memoryCheckImage(src)));
-      if (!checks.some(Boolean)) throw new Error('Google Drive-foto’s is nie publiek sigbaar nie');
-      photos = result;
-      lastLive = true;
+      const found = await memoryGetLivePhotos();
+      // A real image must be viewable by guests; valid JSON alone is not enough.
+      if (!live) {
+        const sample = memoryShuffle(found).slice(0, Math.min(4, found.length));
+        const visible = await Promise.all(sample.map(src => memoryCheckImage(src)));
+        if (!visible.some(Boolean)) throw new Error('Drive-foto’s is nie publiek leesbaar nie');
+      }
+      const signature = found.slice().sort().join('\n');
+      if (signature !== listSignature) {
+        photoList = found;
+        listSignature = signature;
+        shuffledDeck = [];
+        deckIndex = 0;
+        lastPhoto = '';
+        if (!live) restartStrip();
+        // When new photos arrive, keep the moving filmstrip continuous;
+        // queued frames will be replaced naturally, not reset every 2 minutes.
+      }
+      live = true;
+      brokenPhotos = 0;
       track.dataset.source = 'Google Drive';
-      nextSelection();
-      paint();
+      track.dataset.total = String(found.length);
+      showStatus(found.length + ' foto’s in die herinneringsreel', 'live');
     } catch (error) {
-      console.warn('Family album unavailable. Keeping real family backup photos:', error);
-      track.dataset.source = lastLive ? 'Google Drive' : 'Familiefoto’s (rugsteun)';
-      // Keep the reel moving with the genuine family previews, never generic product imagery.
+      console.warn('Memory Reel: cannot reach shared Google Drive album:', error);
+      if (!live) {
+        track.dataset.source = 'Rugsteunfoto’s';
+        track.dataset.total = String(MEMORY_BACKUP.length);
+        showStatus('Die volledige Google Drive-album kon nie laai nie — slegs rugsteunfoto’s word tans gewys.', 'warning');
+      }
+      // Never discard a previously successful feed after a transient failure.
     } finally {
       fetching = false;
-      if (reloadButton) reloadButton.disabled = false;
     }
   }
-  if (pauseButton) {
-    pauseButton.addEventListener('click', () => {
-      paused = !paused;
-      pauseButton.textContent = paused ? 'Speel die reel ▶' : 'Pouseer die reel';
-      pauseButton.setAttribute('aria-pressed', String(paused));
-      previousTime = 0;
-    });
-  }
-  if (reloadButton) reloadButton.addEventListener('click', reload);
-  window.addEventListener('resize', () => {distance=0;previousTime=0;});
-  document.addEventListener('visibilitychange', () => {previousTime=0;});
 
-  nextSelection();
-  paint();
-  track.dataset.source = 'Familiefoto’s (rugsteun)';
-  requestAnimationFrame(frame); // one loop, no touchstart/touchend pause
+  showStatus('Laai die volledige foto-album…', 'loading');
+  restartStrip();
+  track.dataset.source = 'Rugsteunfoto’s';
+  track.dataset.total = String(MEMORY_BACKUP.length);
+  requestAnimationFrame(animate);
+  document.addEventListener('visibilitychange', () => { previousTime = 0; });
+  window.addEventListener('resize', () => { previousTime = 0; });
   reload();
-  // Automatically check again for new photos while the party is underway.
-  setInterval(reload, 120000);
+  setInterval(reload, REEL_REFRESH_MS); // automatic live updates, no refresh button
 }
 startMemoryReel();
 

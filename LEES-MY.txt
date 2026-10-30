@@ -1,51 +1,42 @@
-DvE 1956 | V30 MEMORY REEL - FOTOS PAS BINNE DIE RAME
-======================================
+DvE 1956 | V32 - MEMORY REEL: VOLLE ALBUM EN GEEN STOP-/HERLAAIKNOPPIES
+===============================================================
 
-BESTANDE
-- index.html: Afrikaanse webwerf (wortel van projek)
-- styles.css: goedgekeurde V20/V29 blou uitleg; mobiele verbeterings
-- app.js: nuwe MEMORY REEL, RSVP en Google Sheets aansluiting
-- api/photos.js: Vercel-funksie wat die bestaande Google Drive-foto feed betroubaar laai
-- assets/: 11 prente wat deur die webwerf gebruik word
+WAT IS AANGEPAS
+- Die twee knoppies "Pouseer die reel" en "Nuwe foto's" is verwyder.
+- Die foto-reel beweeg nou outomaties en aanhoudend.
+- Elke unieke foto in die GOOGLE DRIVE foto-feed word een keer per volledige geskudde siklus gekies.
+  Die vorige 18-foto-bondelbeperking is verwyder.
+- Slegs 12 foto's word op 'n slag in die blaaier gelaai om iPhones glad te laat werk.
+- Die reel herbegin NIE meer elke keer wanneer die feed vir nuwe foto's nagegaan word nie.
+- Nuwe foto's word outomaties by die volgende siklus ingesluit (navraag elke 2 minute).
+- Fotos behou die volle afmetings met object-fit: contain, EXIF-orientasie en 'n sagte agtergrond.
+- 'n Klein statuslyn wys die hoeveelheid foto's wat die feed teruggee, of 'n eerlike waarskuwing as die feed nie werk nie.
+- Die Afrikaanse WhatsApp-voorskou beskryf steeds Don, nie Pa nie (V31).
+- Geen verandering aan bestaande RSVP-, musiek-, hero- of ontwerpblokke nie.
 
-MEMORY REEL - REGSTELLING
-- Voorheen was net die eerste 14 fotos gebruik en in daardie volgorde gewys.
-- V29 skommel nou die HELE foto-lys, kies lukraak tot 18 op 'n slag en skommel weer na elke volle omloop.
-- Skommel ook weer wanneer 'n gas die bladsy herlaai; hou die vorige paar beginfoto's uit die nuwe begin indien moontlik.
-- /api/photos verhoed dat 'n Google Apps Script CORS-probleem die reel na dieselfde plaaslike fotos terugstuur.
-- Die feed word elke 4 minute nagegaan sodat nuwe fotos tydens die fees ook kan verskyn.
-- Indien die feed misluk, sal die webwerf tydelik geskommelde plaaslike beelde vertoon.
+BELANGRIK: FOTO-FEED / GOOGLE DRIVE
+- Die webwerf kan slegs die foto's wys wat die bestaande Google Apps Script se foto-feed teruggee
+  EN waarvoor besoekers toegang tot die beeld het.
+- Indien die statuslyn die rugsteunfoto's meld, is die feed/API ontoeganklik of die foto's is
+  nie publiek leesbaar nie. Die Vercel API en Google Drive-toestemmings moet nagegaan word.
+- Indien die statuslyn minder foto's wys as wat in die Drive-vouer is, kontroleer die
+  Apps Script-ontplooiing, regte, en of foto's in subvouers is (die huidige skrip lees
+  slegs die hoofvouer se direkte prentlêers).
+- Wys na ontplooiing die volgende URL in 'n blaaier:
+  https://donbday31dec.vercel.app/api/photos
+  Dit behoort 'n JSON-objek met 'images' en 'count' te gee. Die 'count' moet by die
+  hoeveelheid toeganklike prente in die Drive-vouer pas.
+- Indien die foto-feed/Drive nie toeganklik is nie, kan die webwerf dit nie self regstel nie.
 
-FOTO-OPLAAI
-- Die oorspronklike gedeelde Google Drive-vouer is weer aan die Memory Reel se knoppie gekoppel:
-  https://drive.google.com/drive/folders/1303l_SMGXM7H-x27RGDhT7H0Z-goqKjf?usp=drive_link
-- Gaste moet toestemming he om na hierdie vouer op te laai. Bevestig dit deur die skakel in 'n private venster te toets.
-- Dit is dieselfde vouer wat die oorspronklike foto-feed Apps Script gebruik het.
+HOE OM V32 TE PUBLISEER
+1. Pak die volledige ZIP uit.
+2. Vervang die werklike projeklêers op GitHub (veral index.html, app.js, styles.css EN api/photos.js).
+3. Behou die 'assets' en bestaande 'vercel.json' in die projek se wortel.
+4. Commit na die projek se produksie-tak (gewoonlik main); Vercel ontplooi outomaties.
+5. Gebruik 'n harde herlaai en kontroleer die foto-teller en die /api/photos-JSON.
 
-PUBLISEER OP VERCEL
-1. Pak die zip uit en koppel die uitgepakte vouer aan Vercel via GitHub, of gebruik Vercel CLI.
-2. Die projek benodig geen framework of build command nie; index.html is in die wortel.
-3. Vercel moet ook die /api/photos.js serverless function ontplooi.
-4. Bevestig na publisering dat https://JOU-WEBWERF.vercel.app/api/photos JSON met 'images' bevat.
-5. Herlaai die webwerf 'n paar keer en kyk dat verskillende foto's eerste verskyn.
-6. Klik 'Laai foto's op' en toets die Drive-vouer se oplaai-regte.
-
-RSVP
-- Die bestaande Google Sheets RSVP-diens en Apps Script URL bly onveranderd.
-- Toets een regstreekse RSVP en kontroleer die Google Sheet.
-- Die RSVP moet bevestig word voor 15 November 2026.
-
-BELANGRIK
-- Lewendige Google Drive-/Vercel-konneksies kan eers finaal na ontplooiing bevestig word.
-- Die Memory Reel vertoon die oorspronklike Drive-vouer se fotos mits die bestaande foto-feed beskikbaar is.
-
-
-V30 - FOTO-PAS REGSTELLING (17 OKTOBER 2026)
-------------------------------------------------
-- Alle foto-elemente in die Memory Reel word nou volledig vertoon, sonder om die kante of mense se koppe te sny.
-- Elke foto behou sy oorspronklike verhoudings (object-fit: contain).
-- 'n Subtiele, vervaagde weergawe van dieselfde foto vul leë raamspasie sonder om die hoofprent te sny.
-- Die oorspronklike foto se EXIF-rotasie word gerespekteer (image-orientation: from-image).
-- Die Google Drive-foto-feed, skommel/reel, stop/hervat, RSVP en alle ander ontwerp is ongewysig behou.
-- Die vyf plaaslike RUGSTEUNprente kom uit ou skermskote en bevat reeds vooraf-uitgesnyde rande. CSS kan nie oorspronklik ontbrekende dele terugbring nie. Die regstreekse Google Drive-foto's word wel sonder verdere snitte vertoon.
-- Die nuwe CSS en JS laai met weergawe ?v=30.0 om ou kas-kopiee te omseil.
+LOKALE TOETSE (30 OKTOBER 2026)
+- Chrome-bladsytoets met 120 toetsfoto-URL's: al 120 is bereik sonder loop-reset.
+- Slegs 12 rame gelyk, geen ou knoppies nie, object-fit: contain.
+- Beide mobiele (390px) en rekenaar (1280px) viewport-toetse geslaag.
+- Die werklike live Google Drive-feed kon nie uit die huidige toetsomgewing bevestig word nie.
